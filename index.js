@@ -1,42 +1,26 @@
 var express = require('express');
 const bodyparser = require("body-parser");
 var app = express();
-
 app.use(bodyparser.urlencoded({ extended: true }));
 app.get('/', function (req, res) {
    res.sendFile( __dirname + "/" + "index.html" );
 })
-
 app.post('/', function (req, res) {
-    heigh = parseFloat(req.body.Height);
-    weigh = parseFloat(req.body.Weight);
-    bmi = weigh / (heigh * heigh);
- 
-    //number to string format
+    h = parseFloat(req.body.Height);
+    w = parseFloat(req.body.Weight);
+    bmi = w / (h * h);
     bmi = bmi.toFixed();
- 
     req_name = req.body.Name;
- 
-    // CONDITION FOR BMI
     if (bmi < 19) {
-        res.send("<h3>hey! " + req_name +
-                 " your BMI is around: " + bmi +
-                 "<centre><h1>You are Underweight!");
+        res.send("<h2>Name: " + req_name +"<br>BMI: " + bmi +"<br>Underweight!");
     } else if (19 <= bmi && bmi < 25) {
-        res.send("<h3>hey! " + req_name +
-                 " your BMI is around: " + bmi +
-                 "<centre><h1>You are Normalweight!");
+        res.send("<h2>Name: " + req_name +"<br>BMI: " + bmi +"<br>Normalweight!");
     } else if (25 <= bmi && bmi < 30) {
-        res.send("<h3>hey! " + req_name +
-                 " your BMI is around: " + bmi +
-                 "<centre><h1>You are Overweight!");
+        res.send("<h2>Name: " + req_name +"<br>BMI: " + bmi +"<br>Overweight!");
     } else {
-        res.send("<h3>hey! " + req_name +
-                 " your BMI is around: " + bmi +
-                 "<centre><h1>You are Obese!");
+        res.send("<h2>Name: " + req_name +"<br>BMI: " + bmi +"<br>Obese!");
     }
 });
-
 app.listen( process.env.PORT || 5000 ,function () {
-	console.log("port active");
+	console.log("Port active on http://localhost:5000/");
 });
